@@ -78,7 +78,11 @@ Battery.prototype._status = function (info) {
             }
 
             // Something changed. Fire batterystatus event
-            cordova.fireWindowEvent('batterystatus', info);
+            //cordova.fireWindowEvent('batterystatus', info);
+            var batterystatusevent = document.createEvent('Events');
+            batterystatusevent.initEvent('batterystatus', true, true);
+            batterystatusevent.data = info;
+            window.dispatchEvent(batterystatusevent);
 
             if (!info.isPlugged) { // do not fire low/critical if we are charging. issue: CB-4520
                 // note the following are NOT exact checks, as we want to catch a transition from
